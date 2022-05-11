@@ -5,5 +5,5 @@
 #include "util_pin.h"
 
 unsigned long pulsePin(int pin_number, int state);
-void delayMs(long microseconds);
+void delayMicro(long microseconds);
 #endif

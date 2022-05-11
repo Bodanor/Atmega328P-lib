@@ -17,11 +17,11 @@ int main()
 
     while (1)
     {
-        long duration = 0, distance = 0;
+        unsigned long duration = 0, distance = 0;
         writePin(trigPin, LOW);
-        delayMs(2);
+        delayMicro(2);
         writePin(trigPin, HIGH);
-        delayMs(10);
+        delayMicro(10);
         writePin(trigPin, LOW);
 
         duration = pulsePin(echoPin, HIGH);
@@ -32,7 +32,7 @@ int main()
         sprintf(buffer, "%ld", distance);
         USART_SendStr(buffer);
         USART_SendStr(" cm \n");
-        delayMs(100);
+        delayMicro(1000000);
 
     }
 }

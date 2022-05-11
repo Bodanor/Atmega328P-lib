@@ -1,7 +1,1 @@
-.vscode/avr.build/output.elf
-.vscode/avr.build/output.lst
-.vscode/avr.build/obj/main.c.o
-.vscode/avr.build/obj/timer.c.o
-.vscode/avr.build/obj/uart.c.o
-.vscode/avr.build/obj/util_pin.c.o
-.vscode/avr.build/obj/utils.c.o
+.vscode/avr.build/*
