@@ -19,9 +19,9 @@ int main()
     {
         long duration = 0, distance = 0;
         writePin(trigPin, LOW);
-        delayMC(100);
+        delayMs(2);
         writePin(trigPin, HIGH);
-        delayMC(10);
+        delayMs(10);
         writePin(trigPin, LOW);
 
         duration = pulsePin(echoPin, HIGH);
@@ -32,6 +32,7 @@ int main()
         sprintf(buffer, "%ld", distance);
         USART_SendStr(buffer);
         USART_SendStr(" cm \n");
+        delayMs(100);
 
     }
 }

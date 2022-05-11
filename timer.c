@@ -44,18 +44,22 @@ unsigned long pulsePin(int pin_number, int state)
     return i;
 }
 
-void delayMC(long mc)
+void delayMs(long microseconds)
 {
+
     unsigned int i = 0;
-    TCCR0A = 0;
-    TCCR0B = 1 << CS01;
+    unsigned int wait = microseconds / 0.1;
 
-    while (i < 4000)
+    TCCR0A = 1 << WGM01;
+    TCNT0 = 0;
+    OCR0A = 2;
+    TCCR0B = 1 << CS00;
+
+    while (i < wait)
     {
-        TCNT0 = 6;
-        TIFR0 = 1 << TOV0;
+        TIFR0 = 1 << OCF0A;
 
-        while (!(TIFR0 & (1 << TOV0)));
+        while (!(TIFR0 & (1 << OCF0A)));
 
         i++;
     }
