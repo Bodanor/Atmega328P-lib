@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "../include/uart.h"
 
 void USART_SendStr(const char *str)
 {

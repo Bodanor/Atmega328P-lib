@@ -1,4 +1,4 @@
-#include "util_pin.h"
+#include "../include/util_pin.h"
 
 void setState(int pin_number, int state)
 {

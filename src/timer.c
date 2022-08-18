@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "../include/timer.h"
 
 unsigned long pulsePin(int pin_number, int state)
 {
