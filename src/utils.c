@@ -33,4 +33,6 @@ int itoa(unsigned long val, char *buffer)
     buffer[i] = '\0';
     reverse(buffer);
 
+    return 0;
+
 }
