@@ -5,6 +5,6 @@
 #include <string.h>
 
 
-int itoa(unsigned long val, char *buffer);
+void itoa(unsigned int n, char *s);
 
 #endif
