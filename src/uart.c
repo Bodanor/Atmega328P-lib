@@ -6,9 +6,9 @@ void USART_SendStr(const char *str)
         USART_Transmit(*str++);
 }
 
-void USART_Init(unsigned int ubrr)
+void USART_Init(unsigned int baudSpeed)
 {
-    UBRR0 = ubrr;
+    UBRR0 = BAUDRATE(baudSpeed);
 
     UCSR0B = (1<<RXEN0)|(1<<TXEN0);
 
