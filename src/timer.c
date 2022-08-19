@@ -2,7 +2,6 @@
 
 unsigned long pulsePin(int pin_number, int state)
 {
-    volatile uint8_t *port = getPinPort(pin_number);
     uint8_t pinmask = getPinMask(pin_number);
     uint8_t stateMask;
     unsigned long loops = 0;
@@ -22,12 +21,13 @@ unsigned long pulsePin(int pin_number, int state)
         if(loops++ == max_loops)
             return 0;
     
-    while ((*getInputPortRegister(pin_number) & pinmask) == stateMask)
+    while ((*getInputPortRegister(pin_number) & pinmask) == stateMask){
         if(loops++ == max_loops)
             return 0;
         clocks++;
+    }
     
-    return(clocks * 21 + 16)/16;
+    return(clocks * 18)/16;
     
 }
 
