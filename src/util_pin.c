@@ -73,7 +73,7 @@ void setState(int pin_number, int state)
 
 void writePin(int pin_number, int state)
 {
-    volatile uint8_t *portRegister = getPortDataDirectionRegister(pin_number);
+    volatile uint8_t *portRegister = getOutputPortRegister(pin_number);
     pin_number = getPinNumPerPort(pin_number);
 
     if (state == LOW)
@@ -85,7 +85,7 @@ void writePin(int pin_number, int state)
 
 int readPin(int pin_number)
 {
-    volatile uint8_t *portRegister = getPortDataDirectionRegister(pin_number);
+    volatile uint8_t *portRegister = getInputPortRegister(pin_number);
     pin_number = getPinNumPerPort(pin_number);
 
     return *portRegister & (1 << pin_number);

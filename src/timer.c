@@ -2,48 +2,33 @@
 
 unsigned long pulsePin(int pin_number, int state)
 {
-    unsigned long i = 0;
+    volatile uint8_t *port = getPinPort(pin_number);
+    uint8_t pinmask = getPinMask(pin_number);
+    uint8_t stateMask;
+    unsigned long loops = 0;
+    unsigned long clocks = 0;
+    unsigned long max_loops = 16 * 1000000 / 16;
 
     if (state == HIGH)
-    {
-        while(readPin(pin_number) != HIGH);
-
-        TCCR0A = 1 << WGM01;
-        TCNT0 = 0;
-        OCR0A = 160; // MODIFIER
-        TCCR0B = 1 << CS00;
-
-        while (readPin(pin_number) != LOW)
-        {
-            TIFR0 = 1 << OCF0A;
-        
-            while (!(TIFR0 & (1 << OCF0A)));
-            i++;
-        }
-
-        TCCR0B = 0;
-    }
+        stateMask = pinmask;
     else
-    {
-        while(readPin(pin_number) != LOW);
-
-        TCCR0A = 1 << WGM01;
-        TCNT0 = 0;
-        OCR0A = 160; 
-        TCCR0B = 1 << CS00;
-
-        while (readPin(pin_number) != HIGH)
-        {
-            TIFR0 = 1 << OCF0A;
-        
-            while (!(TIFR0 & (1 << OCF0A)));
-            i++;
-        }
-
-        TCCR0B = 0;
-    }
-
-    return i * 10;
+        stateMask = 0;
+    
+    while ((*getInputPortRegister(pin_number) & pinmask) == stateMask)
+        if(loops++ == max_loops)
+            return 0;
+    
+    while ((*getInputPortRegister(pin_number) & pinmask) != stateMask)
+        if(loops++ == max_loops)
+            return 0;
+    
+    while ((*getInputPortRegister(pin_number) & pinmask) == stateMask)
+        if(loops++ == max_loops)
+            return 0;
+        clocks++;
+    
+    return(clocks * 21 + 16)/16;
+    
 }
 
 void delayMicro(long microseconds)
