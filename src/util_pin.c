@@ -10,7 +10,7 @@ volatile uint8_t*getOutputPortRegister(uint16_t pin)
         return &PORTC;
     else
         return NULL;
-
+        
 }
 volatile uint8_t *getInputPortRegister(uint16_t pin)
 {

@@ -1,6 +1,11 @@
 #include "../include/timer.h"
 
-unsigned long pulsePin(int pin_number, int state)
+//TODO: Write macros for GetPinMask and company to optimize code generation...
+/*
+    I have enabled to optimization with flag -0S so that *Hopefully* the compiler always optmize this function. I hope compilers doesn't change lmuch of the code...
+    It is important to have consistent assembly code as this function is based on instructions clocks cycles and expect the loop to take 18 clocks cycles !
+*/
+unsigned long __attribute__((optimize("s"))) pulsePin(int pin_number, int state)
 {
     uint8_t pinmask = getPinMask(pin_number);
     uint8_t stateMask;
@@ -27,7 +32,13 @@ unsigned long pulsePin(int pin_number, int state)
         clocks++;
     }
     
-    return(clocks * 18)/16;
+    /*
+        Looking at the assembly code produced, we can observe that the loop that increments clocks ad is the main part takes 18 clocks cycles.
+        Also, we have take as an account the initalization of the variable. From the start of the function to the main loop part, there is approximately 16 clocks
+        Cycles. Keep in mind that there is still some errors introduced by the function getPinMask as is left shift a value based on a pin.
+        If for example pin is 1, is takes 3 clocks cycles to return from that function. Whereas is pin is 6, it takes 3*6 time clocks cycles to return !
+    */
+    return(16 + (clocks*18))/16;
     
 }
 
