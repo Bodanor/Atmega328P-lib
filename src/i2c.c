@@ -1,9 +1,9 @@
 #include "i2c.h"
 
 static short i2c_start(void);
-static short i2c_stop(void);
-static short i2c_write_address(uint8_t i2c_address_device);
-static short i2c_write_data(uint8_t data);
+static void i2c_stop(void);
+static short i2c_write_address(const uint8_t i2c_address_device);
+static short i2c_write_data(const uint8_t data);
 static uint8_t i2c_read(uint8_t ack);
 
 void i2c_init(uint64_t brate)
@@ -81,7 +81,7 @@ short i2c_start()
 		return 0;
 }
 
-static short i2c_stop(void)
+static void i2c_stop(void)
 {
 
 	#ifdef DEBUG
@@ -90,7 +90,7 @@ static short i2c_stop(void)
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
 
 }
-short i2c_transmit(uint8_t i2c_address_device, uint8_t data)
+short i2c_transmit(const uint8_t i2c_address_device, const uint8_t data)
 {
 	if (i2c_start() == -1){
 
@@ -129,7 +129,7 @@ short i2c_transmit(uint8_t i2c_address_device, uint8_t data)
 	
 }
 
-static short i2c_write_address(uint8_t i2c_address_device)
+static short i2c_write_address(const uint8_t i2c_address_device)
 {
 	#ifdef DEBUG
 		char s[10];
@@ -158,7 +158,7 @@ static short i2c_write_address(uint8_t i2c_address_device)
 
 }
 
-static short i2c_write_data(uint8_t data)
+static short i2c_write_data(const uint8_t data)
 {
 	#ifdef DEBUG
 		char s[10];
@@ -221,7 +221,7 @@ static uint8_t i2c_read(uint8_t ack)
 
 }
 
-short i2c_receive(uint8_t i2c_address_device, uint8_t *data, uint8_t read_ack)
+short i2c_receive(const uint8_t i2c_address_device, uint8_t *data, uint8_t read_ack)
 {
 	if (i2c_start() == -1){
 

@@ -6,5 +6,5 @@
 
 
 void itoa(unsigned int n, char *s);
-void atohex(uint8_t src, char *dst);
+void atohex(const uint8_t src, char *dst);
 #endif

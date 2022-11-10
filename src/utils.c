@@ -33,7 +33,7 @@ void itoa(unsigned int n, char *s)
     reverse(s);
 }
 
-void atohex(uint8_t src, char *dst)
+void atohex(const uint8_t src, char *dst)
 {
     uint8_t quotient;
     uint8_t i=0, temp;
