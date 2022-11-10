@@ -8,6 +8,7 @@ static uint8_t i2c_read(uint8_t ack);
 
 void i2c_init(uint64_t brate)
 {
+
 	#ifdef DEBUG
 		USART_Init(B9600);
 		USART_SendStr("[INFO] I2C Init...\r\n");
@@ -113,7 +114,6 @@ short i2c_transmit(const uint8_t i2c_address_device, const uint8_t data)
 		return -1;
 
 	}
-
 	#ifdef DEBUG
 		USART_SendStr("[SUCCESS] ACK received from slave !\r\n");
 	#endif
@@ -125,6 +125,7 @@ short i2c_transmit(const uint8_t i2c_address_device, const uint8_t data)
 		return -2;
 	}
 
+	i2c_stop();
 	return 0;
 	
 }
@@ -176,10 +177,8 @@ static short i2c_write_data(const uint8_t data)
 	
 	if (TW_STATUS != TW_MT_DATA_ACK)
 		return -1;
-	else{
-		i2c_stop();
+	else
 		return 0;
-	}
 }
 static uint8_t i2c_read(uint8_t ack)
 {
