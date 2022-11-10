@@ -1,10 +1,14 @@
 {
+    "AVR.reporter.arguments": [
+        "-C"
+    ],
     "AVR.source.compiler": "/usr/bin/avr-gcc",
     "AVR.programmer.tool": "/usr/bin/avrdude",
-    "AVR.source.libraries": [],
     "AVR.device.type": "atmega328p",
     "AVR.device.frequency": 16000000,
     "AVR.programmer.type": "arduino",
-    "AVR.programmer.port": "/dev/ttyACM2",
-    "AVR.programmer.rate": 115200
+    "AVR.programmer.port": "/dev/ttyACM1",
+    "AVR.programmer.rate": 115200,
+    "AVR.source.highlight": true,
+    "AVR.source.scanning depth": 5
 }

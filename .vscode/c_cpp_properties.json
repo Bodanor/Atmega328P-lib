@@ -3,11 +3,20 @@
         {
             "name": "AVR",
             "intelliSenseMode": "${default}",
-            "cStandard": "c11",
-            "cppStandard": "c++14",
             "compilerPath": "/usr/bin/avr-gcc",
-            "includePath": [],
+            "cStandard": "${default}",
+            "cppStandard": "${default}",
+            "includePath": ["${workspaceFolder}/include"],
             "compilerArgs": [
+                "-g",
+                "-Os",
+                "-Wall",
+                "-Wextra",
+                "-fpermissive",
+                "-fno-exceptions",
+                "-fno-threadsafe-statics",
+                "-pipe",
+                "-v",
                 "-mmcu=atmega328p",
                 "-DF_CPU=16000000UL"
             ]

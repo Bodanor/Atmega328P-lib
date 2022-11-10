@@ -31,4 +31,27 @@ void itoa(unsigned int n, char *s)
     } while ((n /= 10) > 0);     /* delete it */
      s[i] = '\0';
     reverse(s);
- }
+}
+
+void atohex(uint8_t src, char *dst)
+{
+    uint8_t quotient;
+    uint8_t i=0, temp;
+
+    quotient = src;
+	while(quotient!=0) {
+		temp = quotient % 16;
+
+		if( temp < 10)
+		    temp =temp + 48;
+        else
+		    temp = temp + 55;
+		dst[i++]= temp;
+		quotient = quotient / 16;
+	}
+    dst[i++] = 'x';
+    dst[i++] = '0';
+    dst[i] = '\0';
+
+    reverse(dst);
+}
