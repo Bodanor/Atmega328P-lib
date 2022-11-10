@@ -22,4 +22,5 @@ void i2c_init(uint64_t brate);
 
  */
 short i2c_transmit(uint8_t i2c_address_device, uint8_t data);
+short i2c_receive(uint8_t i2c_address_device, uint8_t *data, uint8_t read_ack);
 #endif

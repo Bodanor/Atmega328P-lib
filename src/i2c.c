@@ -2,8 +2,9 @@
 
 static short i2c_start(void);
 static short i2c_stop(void);
-static short i2c_send_address(uint8_t i2c_address_device);
-static short i2c_send_data(uint8_t data);
+static short i2c_write_address(uint8_t i2c_address_device);
+static short i2c_write_data(uint8_t data);
+static uint8_t i2c_read(uint8_t ack);
 
 void i2c_init(uint64_t brate)
 {
@@ -104,7 +105,7 @@ short i2c_transmit(uint8_t i2c_address_device, uint8_t data)
 			USART_SendStr("[SUCCESS] Start condition sent !\r\n");
 	#endif
 
-	if (i2c_send_address((i2c_address_device << 1 ) | TW_WRITE) == -1)
+	if (i2c_write_address((i2c_address_device << 1 ) | TW_WRITE) == -1)
 	{
 		#ifdef DEBUG
 			USART_SendStr("[ERROR] ACK not received from slave !\r\n");
@@ -117,7 +118,7 @@ short i2c_transmit(uint8_t i2c_address_device, uint8_t data)
 		USART_SendStr("[SUCCESS] ACK received from slave !\r\n");
 	#endif
 	
-	if (i2c_send_data(data) == -1){
+	if (i2c_write_data(data) == -1){
 		#ifdef DEBUG
 			USART_SendStr("[ERROR] ACK not received from slave !\r\n");
 		#endif
@@ -126,10 +127,9 @@ short i2c_transmit(uint8_t i2c_address_device, uint8_t data)
 
 	return 0;
 	
-
 }
 
-static short i2c_send_address(uint8_t i2c_address_device)
+static short i2c_write_address(uint8_t i2c_address_device)
 {
 	#ifdef DEBUG
 		char s[10];
@@ -158,12 +158,14 @@ static short i2c_send_address(uint8_t i2c_address_device)
 
 }
 
-static short i2c_send_data(uint8_t data)
+static short i2c_write_data(uint8_t data)
 {
 	#ifdef DEBUG
-		USART_SendStr("[INFO] Sending I2C Data : '");
-		USART_Transmit(data);
-		USART_SendStr("' !\r\n");
+		char s[10];
+		USART_SendStr("[INFO] Sending I2C Data : ");
+		atohex(data, s);
+		USART_SendStr(s);
+		USART_SendStr(" !\r\n");
 	#endif
 
 	TWDR = data;
@@ -178,4 +180,80 @@ static short i2c_send_data(uint8_t data)
 		i2c_stop();
 		return 0;
 	}
+}
+static uint8_t i2c_read(uint8_t ack)
+{
+	uint8_t data;
+
+	#ifdef DEBUG
+		USART_SendStr("[INFO] Reading I2C Data..\r\n");
+	#endif
+
+	TWCR = (1 << TWINT) | (1 << TWEN);
+	if (ack)
+		TWCR |= (1 << TWEA);
+
+	while ((TWCR & (1 << TWINT)))
+			;
+	
+	if (ack)
+	{
+		if (TW_STATUS != TW_MR_DATA_ACK)
+			return -1;
+		
+	}
+	else{
+		if (TW_STATUS != TW_MR_DATA_NACK)
+			return -1;
+	}
+
+	data = TWDR;
+
+	#ifdef DEBUG
+		char s[10];
+		USART_SendStr("[INFO] Received Data : ");
+		atohex(data, s);
+		USART_SendStr(s);
+		USART_SendStr(" !\r\n");
+	#endif
+
+	return data;
+
+}
+
+short i2c_receive(uint8_t i2c_address_device, uint8_t *data, uint8_t read_ack)
+{
+	if (i2c_start() == -1){
+
+		#ifdef DEBUG
+			USART_SendStr("[ERROR] Start condition could not be send !\r\n");
+		#endif
+
+		return -1;
+	}
+
+	#ifdef DEBUG
+			USART_SendStr("[SUCCESS] Start condition sent !\r\n");
+	#endif
+
+	if (i2c_write_address((i2c_address_device << 1 ) | TW_READ) == -1)
+	{
+		#ifdef DEBUG
+			USART_SendStr("[ERROR] ACK not received from slave !\r\n");
+		#endif
+		return -1;
+
+	}
+
+	#ifdef DEBUG
+		USART_SendStr("[SUCCESS] ACK received from slave !\r\n");
+	#endif
+	
+	*data = i2c_read(read_ack);
+
+	i2c_stop();
+
+	return 0;
+
+
 }

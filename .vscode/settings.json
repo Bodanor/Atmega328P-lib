@@ -10,5 +10,8 @@
     "AVR.programmer.port": "/dev/ttyACM1",
     "AVR.programmer.rate": 115200,
     "AVR.source.highlight": true,
-    "AVR.source.scanning depth": 5
+    "AVR.source.scanning depth": 5,
+    "files.associations": {
+        "io.h": "c"
+    }
 }
