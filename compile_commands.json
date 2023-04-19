@@ -1,0 +1,134 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "main.c",
+      "-o",
+      "main.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/main.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "src/i2c.c",
+      "-o",
+      "src/i2c.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/src/i2c.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/src/i2c.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "src/timer.c",
+      "-o",
+      "src/timer.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/src/timer.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/src/timer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "src/uart.c",
+      "-o",
+      "src/uart.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/src/uart.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/src/uart.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "src/util_pin.c",
+      "-o",
+      "src/util_pin.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/src/util_pin.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/src/util_pin.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-Os",
+      "-Wall",
+      "-Wextra",
+      "-fno-exceptions",
+      "-pipe",
+      "-mmcu=atmega328p",
+      "-DF_CPU=16000000UL",
+      "-I/usr/lib/avr/include",
+      "-c",
+      "src/utils.c",
+      "-o",
+      "src/utils.o",
+      "-I",
+      "include/"
+    ],
+    "directory": "/home/liwinux/Desktop/atmega328p-lib",
+    "file": "/home/liwinux/Desktop/atmega328p-lib/src/utils.c",
+    "output": "/home/liwinux/Desktop/atmega328p-lib/src/utils.o"
+  }
+]
