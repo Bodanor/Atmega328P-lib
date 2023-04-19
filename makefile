@@ -1,5 +1,7 @@
 CC = avr-gcc
-CFLAGS = -Os -Wall -Wextra -fno-exceptions -pipe -mmcu=atmega328p -DF_CPU=16000000UL -I/usr/lib/avr/include
+CFLAGS = -Os -Wall -Wextra -Wshadow -Wdouble-promotion -Wundef -fno-common -Wconversion -ffunction-sections -Wpadded -mmcu=atmega328p -DF_CPU=16000000UL -I/usr/lib/avr/include -Wl,--gc-sections
+
+# TODO: We can also include the Werror 
 
 C_SOURCES := $(wildcard *.c src/*.c)
 C_HEADERS := include/$(wildcard *.h)
